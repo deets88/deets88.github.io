@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2 - Aditya's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .project-detail {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #16213e 0%, #2c3e50 100%);
+            padding: 4rem 2rem;
+            color: white;
+        }
+        
+        .project-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: rgba(168, 216, 234, 0.2);
+            border: 2px solid #a8d8ea;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #a8d8ea;
+            color: #16213e;
+            transform: translateY(-2px);
+        }
+        
+        .project-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #a8d8ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .project-image {
+            width: 100%;
+            max-width: 854px;
+            height: 480px;
+            margin: 0 auto 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .placeholder-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.2rem;
+        }
+        
+        .project-links {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .github-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #24292e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: #2ea44f;
+            transform: translateY(-2px);
+        }
+        
+        .project-description {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .project-description h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #a8d8ea;
+        }
+        
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .project-image {
+                height: 300px;
+            }
+            
+            .project-description {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="project-detail">
+        <div class="project-container">
+            <a href="index.html#grass" class="back-button">← Back to Projects</a>
+            
+            <div class="project-header">
+                <!-- EDIT: Replace with your project name -->
+                <h1 class="project-title">Number Converter App</h1>
+            </div>
+            
+            <!-- EDIT: Add your project image -->
+            <div class="project-image">
+                <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                    <source src="images/number.mp4" type="video/mp4"> Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <!-- EDIT: Add your GitHub link -->
+            <div class="project-links">
+                <a href="https://github.com/deets88/number-converter-csp" target="_blank" class="github-link">
+                    View on GitHub →
+                </a>
+            </div>
+            
+            <!-- EDIT: Add your project description -->
+            <div class="project-description">
+                <h3>About This Project</h3>
+                <p>
+                    This project was created for AP CS Principles. It is a number converter application that allows users to convert numbers between different bases, such as binary, decimal, and hexadecimal. The app features a user-friendly interface and provides real-time conversion results as users input their numbers. This project helped me enhance my understanding of number systems and improve my programming skills in Swift.
+                </p>
+                <br>
+                <p>
+                    <strong>Technologies Used:</strong> This project was created in XCode, using Swift. It was created for the iPhone. 
+                </p>
+                <br>
+                <p>
+                    <strong>Key Features:</strong>
+                </p>
+                <ul>
+                    <li>The app supports conversions between binary, decimal and hexidecimal.</li>
+                    <li>It also features an "Advanced mode", allowing users to convert between any two bases.</li>
+                    <li>The app accounts for misinputs & prevents user error.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

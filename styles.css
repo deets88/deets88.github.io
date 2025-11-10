@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -131,69 +131,179 @@ html {
 #dark-sky {
     background: linear-gradient(180deg, #16213e 0%, #2c3e50 50%, #5dade2 100%);
     color: white;
+    overflow: hidden;
 }
 
 .about-content h2 {
     font-size: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     text-align: center;
     font-weight: 600;
 }
 
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+/* Cloud Container */
+.cloud-container {
+    width: 100%;
+    /* allow decorative parts of clouds to be visible outside the box */
+    overflow: visible;
+    position: relative;
+    margin: 2rem 0;
+    /* increased min-height so clouds and their pseudo-elements (puffs) aren't cropped */
+    min-height: 180px;
+    /* add vertical padding to create breathing room for top/bottom puffs */
+    padding-top: 56px; /* covers the largest ::before/::after negative offsets */
+    padding-bottom: 12px;
+}
+
+.cloud-row-top {
+    margin-bottom: 2rem;
+}
+
+.cloud-row-bottom {
     margin-top: 2rem;
 }
 
-.about-text p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    line-height: 1.8;
+/* Cloud Track */
+.cloud-track {
+    overflow: visible;
+    display: flex;
+    gap: 4rem;
+    white-space: nowrap;
+    width: fit-content;
 }
 
-.fun-facts h3, .skills-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #a8d8ea;
+/* Right to Left Animation */
+.cloud-track-rtl {
+    animation: scrollRightToLeft 35s linear infinite;
 }
 
-.fun-facts ul {
-    list-style: none;
+@keyframes scrollRightToLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
-.fun-facts li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
+/* Left to Right Animation */
+.cloud-track-ltr {
+    animation: scrollLeftToRight 40s linear infinite;
+    transform: translateX(-50%);
+}
+
+@keyframes scrollLeftToRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Cloud Styling */
+.cloud {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    padding: 1.8rem 2.5rem;
+    background: #ffffff;
+    border-radius: 120px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.12),
+        0 3px 8px rgba(0, 0, 0, 0.08);
     position: relative;
-}
-
-.fun-facts li::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    color: #a8d8ea;
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-}
-
-.skill-item {
-    background: rgba(168, 216, 234, 0.2);
-    padding: 0.8rem;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid rgba(168, 216, 234, 0.3);
     transition: all 0.3s ease;
+    filter: brightness(1);
 }
 
-.skill-item:hover {
-    background: rgba(168, 216, 234, 0.3);
-    transform: translateY(-2px);
+/* Cloud decorative puffs */
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0,),
+        0 2px 6px rgba(0, 0, 0,);
+}
+
+.cloud::before {
+    width: 90px;
+    height: 90px;
+    top: -35px;
+    left: 25px;
+}
+
+.cloud::after {
+    width: 110px;
+    height: 110px;
+    top: -45px;
+    right: 20px;
+}
+
+.cloud:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 5px 12px rgba(0, 0, 0, 0.1);
+    filter: brightness(1.05);
+}
+
+/* Cloud Content */
+.cloud-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.cloud-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.cloud-content p {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+
+    line-height: 1.3;
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .cloud {
+        min-width: 160px;
+        padding: 1rem 1.25rem;
+    }
+
+    .cloud::before {
+        width: 60px;
+        height: 60px;
+        top: -25px;
+        left: 12px;
+    }
+
+    .cloud::after {
+        width: 70px;
+        height: 70px;
+        top: -30px;
+        right: 10px;
+    }
+
+    .cloud-container {
+        min-height: 140px;
+        padding-top: 42px;
+        padding-bottom: 10px;
+    }
+}
+    text-align: center;
+    letter-spacing: -0.01em;
 }
 
 /* Light Sky Section */
@@ -201,6 +311,8 @@ html {
     background: linear-gradient(180deg, #5dade2 0%, #a8d8ea 100%);
     color: #2c3e50;
     text-align: center;
+    min-height: 80vh;
+    height: 80vh;
 }
 
 .transition-content h2 {
@@ -217,7 +329,10 @@ html {
 #grass {
     background: linear-gradient(180deg, #27ae60 0%, #2ecc71 50%, #58d68d 100%);
     color: white;
-    padding: 4rem 0;
+    padding: 0;
+    position: relative;
+    min-height: 50vh;
+    height: 50vh;
 }
 
 #grass h2 {
@@ -234,57 +349,300 @@ html {
     opacity: 0.9;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 3rem 2rem;
-    margin-top: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+/* Road Scene Container */
+.road-scene {
+    position: absolute; /* Changed from relative to absolute */
+    top: 0; /* Align the road to the top of the grass layer */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Ensure the road spans the width of the section */
+    height: 100%; /* Extend the road to fill the entire height of the grass layer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Mountain Range at Horizon */
+.mountain-range {
+    position: absolute;
+    top: -140px;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 0;
+    gap: -20px;
+}
+
+/* Individual Mountain Base */
+.mountain {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+/* Mountain 1 - Far Left */
+.mountain-1 {
+    border-width: 0 110px 220px 110px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -40px;
+    z-index: 1;
+}
+
+.mountain-1 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 45px 75px 45px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 2 - Small */
+.mountain-2 {
+    border-width: 0 70px 140px 70px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -35px;
+    z-index: 2;
+}
+
+.mountain-2 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 30px 50px 30px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 3 - Large Center-Left */
+.mountain-3 {
+    border-width: 0 130px 260px 130px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -45px;
+    z-index: 3;
+}
+
+.mountain-3 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 55px 90px 55px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 4 - Small Center */
+.mountain-4 {
+    border-width: 0 75px 150px 75px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -40px;
+    z-index: 2;
+}
+
+.mountain-4 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 32px 55px 32px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 5 - Large Center-Right */
+.mountain-5 {
+    border-width: 0 125px 250px 125px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -42px;
+    z-index: 3;
+}
+
+.mountain-5 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 53px 87px 53px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 6 - Medium Right */
+.mountain-6 {
+    border-width: 0 105px 210px 105px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -38px;
+    z-index: 2;
+}
+
+.mountain-6 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 43px 72px 43px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mountain 7 - Small Far Right */
+.mountain-7 {
+    border-width: 0 80px 160px 80px;
+    border-color: transparent transparent #5a6268 transparent;
+    margin-left: -35px;
+    z-index: 1;
+}
+
+.mountain-7 .mountain-snow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 35px 58px 35px;
+    border-color: transparent transparent white transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Perspective Road */
+.road {
+    position: absolute;
+    width: 50%;
+    height: 100%; /* Extend the road vertically to cover the entire grass layer */
+    background: linear-gradient(to bottom, #3a3a3a 0%, #2c2c2c 100%);
+    clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.4);
+    z-index: 5;
+}
+/* Road Centerline - Dashed yellow line with perspective */
+.road-centerline {
+    position: absolute;
+    width: 15px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 15px,
+        #ffd700 15px,
+        #ffd700 35px
+    );
+    clip-path: polygon(50% 0%, 50% 0%, 100% 100%, 0% 100%);
+    opacity: 0.8;
+}
+
+/* Houses Container */
+.houses-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+/* Base Project House Styles */
 .project-house {
-    background: transparent;
+    position: absolute;
     text-align: center;
     transition: transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .project-house:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(0.8);
+}
+
+.project-house:active {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* House positioning - alternating sides with perspective scaling */
+.house-left {
+    left: 15%;
+}
+
+.house-right {
+    right: 15%;
+}
+
+/* Front houses (larger, closer to viewer) */
+.house-1 {
+    bottom: 10px;
+    transform: scale(0.75);
+    left: 15%
+}
+
+.house-2 {
+    bottom: 10px;
+    transform: scale(0.75);
+    right: 15%
+}
+
+/* Back houses (smaller, further from viewer) */
+.house-3 {
+    top: 10px;
+    transform: scale(0.55);
+    left: 25%
+}
+
+.house-4 {
+    top: 10px;
+    transform: scale(0.55);
+    right: 25%
 }
 
 .house-roof {
     width: 0;
     height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    border-bottom: 60px solid #8b4513;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 50px solid #8b4513;
     margin: 0 auto 0;
 }
 
 .house-body {
     background: #d2691e;
-    width: 200px;
-    height: 150px;
+    width: 160px;
+    height: 140px;
     margin: 0 auto;
     border-radius: 0 0 10px 10px;
-    padding: 1rem;
     position: relative;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.house-body h3 {
+.house-label {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.house-label h3 {
     color: white;
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.house-body p {
+.house-label p {
     color: #f8f8f8;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 .house-door {
@@ -296,6 +654,29 @@ html {
     height: 40px;
     background: #654321;
     border-radius: 15px 15px 0 0;
+}
+
+/* House Windows */
+.house-window {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #87ceeb;
+    border: 2px solid #654321;
+    top: 20px;
+}
+
+.window-left {
+    left: 20px;
+}
+
+.window-right {
+    right: 20px;
+}
+
+/* Remove old grid styles */
+.projects-grid {
+    display: none;
 }
 
 /* Underground Section */
@@ -429,31 +810,140 @@ html {
         gap: 2rem;
     }
     
-    .projects-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem 1rem;
-        max-width: 600px;
-    }
-    
     .main-title {
         font-size: 2.5rem;
     }
     
     .about-content h2,
-    #grass h2,
     .contact-content h2 {
         font-size: 2.2rem;
     }
     
+    /* Grass header text adjustments */
+    .grass-header {
+        padding: 0 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .title-left,
+    .title-right {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    .title-right {
+        font-size: 1.3rem;
+        max-width: 100%;
+    }
+    
+    /* Road scene adjustments */
+    .road {
+        width: 50%;
+        clip-path: polygon(45% 0%, 55% 0%, 75% 100%, 25% 100%);
+    }
+    
+    /* Mountain range responsive */
+    .mountain-range {
+        height: 200px;
+    }
+    
+    .mountain-1 {
+        border-width: 0 80px 160px 80px;
+    }
+    
+    .mountain-1 .mountain-snow {
+        border-width: 0 33px 55px 33px;
+        top: -55px;
+    }
+    
+    .mountain-2 {
+        border-width: 0 50px 100px 50px;
+    }
+    
+    .mountain-2 .mountain-snow {
+        border-width: 0 22px 36px 22px;
+        top: -36px;
+    }
+    
+    .mountain-3 {
+        border-width: 0 95px 190px 95px;
+    }
+    
+    .mountain-3 .mountain-snow {
+        border-width: 0 40px 66px 40px;
+        top: -66px;
+    }
+    
+    .mountain-4 {
+        border-width: 0 55px 110px 55px;
+    }
+    
+    .mountain-4 .mountain-snow {
+        border-width: 0 23px 40px 23px;
+        top: -40px;
+    }
+    
+    .mountain-5 {
+        border-width: 0 92px 184px 92px;
+    }
+    
+    .mountain-5 .mountain-snow {
+        border-width: 0 39px 64px 39px;
+        top: -64px;
+    }
+    
+    .mountain-6 {
+        border-width: 0 77px 154px 77px;
+    }
+    
+    .mountain-6 .mountain-snow {
+        border-width: 0 31px 53px 31px;
+        top: -53px;
+    }
+    
+    .mountain-7 {
+        border-width: 0 58px 116px 58px;
+    }
+    
+    .mountain-7 .mountain-snow {
+        border-width: 0 25px 42px 25px;
+        top: -42px;
+    }
+    
     .house-roof {
-        border-left-width: 75px;
-        border-right-width: 75px;
-        border-bottom-width: 45px;
+        border-left-width: 60px;
+        border-right-width: 60px;
+        border-bottom-width: 40px;
     }
     
     .house-body {
-        width: 150px;
-        height: 120px;
+        width: 120px;
+        height: 100px;
+    }
+    
+    .house-body h3 {
+        font-size: 0.95rem;
+    }
+    
+    .house-body p {
+        font-size: 0.75rem;
+     }
+    
+    .house-window {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .house-1,
+    .house-2 {
+        transform: scale(1.1);
+    }
+    
+    .house-3,
+    .house-4 {
+        transform: scale(0.45);
     }
     
     .social-links {
@@ -474,9 +964,150 @@ html {
         font-size: 1.2rem;
     }
     
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        max-width: 300px;
+    /* Grass header for mobile */
+    .grass-header {
+        padding: 0 1rem;
+        top: 1rem;
+    }
+    
+    .title-left {
+        font-size: 1.5rem;
+    }
+    
+    .title-right {
+        font-size: 1.1rem;
+    }
+    
+    /* Mobile road scene adjustments */
+    .road {
+        width: 55%;
+        clip-path: polygon(44% 0%, 56% 0%, 80% 100%, 20% 100%);
+    }
+    
+    /* Mountain range mobile */
+    .mountain-range {
+        height: 140px;
+    }
+    
+    .mountain-1 {
+        border-width: 0 55px 110px 55px;
+    }
+    
+    .mountain-1 .mountain-snow {
+        border-width: 0 22px 38px 22px;
+        top: -38px;
+    }
+    
+    .mountain-2 {
+        border-width: 0 35px 70px 35px;
+    }
+    
+    .mountain-2 .mountain-snow {
+        border-width: 0 15px 25px 15px;
+        top: -25px;
+    }
+    
+    .mountain-3 {
+        border-width: 0 65px 130px 65px;
+    }
+    
+    .mountain-3 .mountain-snow {
+        border-width: 0 28px 45px 28px;
+        top: -45px;
+    }
+    
+    .mountain-4 {
+        border-width: 0 38px 75px 38px;
+    }
+    
+    .mountain-4 .mountain-snow {
+        border-width: 0 16px 28px 16px;
+        top: -28px;
+    }
+    
+    .mountain-5 {
+        border-width: 0 63px 125px 63px;
+    }
+    
+    .mountain-5 .mountain-snow {
+        border-width: 0 27px 44px 27px;
+        top: -44px;
+    }
+    
+    .mountain-6 {
+        border-width: 0 52px 105px 52px;
+    }
+    
+    .mountain-6 .mountain-snow {
+        border-width: 0 21px 36px 21px;
+        top: -36px;
+    }
+    
+    .mountain-7 {
+        border-width: 0 40px 80px 40px;
+    }
+    
+    .mountain-7 .mountain-snow {
+        border-width: 0 17px 29px 17px;
+        top: -29px;
+    }
+    
+    .house-left {
+        left: 5%;
+    }
+    
+    .house-right {
+        right: 5%;
+    }
+    
+    .house-roof {
+        border-left-width: 50px;
+        border-right-width: 50px;
+        border-bottom-width: 35px;
+    }
+    
+    .house-body {
+        width: 100px;
+        height: 90px;
+        padding: 0.5rem;
+    }
+    
+    .house-body h3 {
+        font-size: 0.7rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .house-body p {
+        font-size: 0.5rem;
+    }
+    
+    .house-door {
+        width: 20px;
+        height: 30px;
+    }
+    
+    .house-window {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .window-left {
+        left: 15px;
+    }
+    
+    .window-right {
+        right: 15px;
+    }
+    
+    .house-1,
+    .house-2 {
+        transform: scale(2);
+        bottom: 60px;
+    }
+    
+    .house-3,
+    .house-4 {
+        transform: scale(1.5);
+        top: 1500px;
     }
 }
